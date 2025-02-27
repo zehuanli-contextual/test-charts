@@ -13,4 +13,8 @@ spec:
   {{- if .Values.sslPolicy }}
   sslPolicy: {{ .Values.sslPolicy | quote }}
   {{- end }}
+  {{- if .Values.frontendConfig.clientAuthentication.enabled }}
+  clientAuthentication:
+    trustConfig: {{ .Values.frontendConfig.clientAuthentication.trustConfig | quote }}
+  {{- end }}
 {{- end }}

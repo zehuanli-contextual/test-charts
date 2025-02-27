@@ -63,6 +63,9 @@ frontendConfig:
   redirectToHttps:
     enabled: false
     responseCodeName: MOVED_PERMANENTLY_DEFAULT
+  clientAuthentication:
+    enabled: false
+    trustConfig: ""
 
 # SSL Policy for client certificate verification (mTLS)
 sslPolicy: ""  # Set to your policy name to enable
