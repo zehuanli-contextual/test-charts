@@ -63,12 +63,11 @@ frontendConfig:
   redirectToHttps:
     enabled: false
     responseCodeName: MOVED_PERMANENTLY_DEFAULT
+  # SSL Policy for client certificate verification (mTLS)
+  sslPolicy: ""  # Set to your policy name to enable
   clientAuthentication:
     enabled: false
     trustConfig: ""
-
-# SSL Policy for client certificate verification (mTLS)
-sslPolicy: ""  # Set to your policy name to enable
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
