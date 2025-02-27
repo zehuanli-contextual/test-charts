@@ -1,12 +1,16 @@
-{{- if .Values.frontendConfig.enabled -}}
+{{- if .Values.frontendConfig.enabled }}
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
   name: {{ .Values.frontendConfig.name }}
-  labels:
-    {{- include "nginx-chart.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
 spec:
+  {{- if .Values.frontendConfig.redirectToHttps.enabled }}
   redirectToHttps:
-    enabled: {{ .Values.frontendConfig.redirectToHttps.enabled }}
+    enabled: true
     responseCodeName: {{ .Values.frontendConfig.redirectToHttps.responseCodeName }}
+  {{- end }}
+  {{- if .Values.sslPolicy }}
+  sslPolicy: {{ .Values.sslPolicy | quote }}
+  {{- end }}
 {{- end }}
