@@ -10,8 +10,8 @@ spec:
     enabled: true
     responseCodeName: {{ .Values.frontendConfig.redirectToHttps.responseCodeName }}
   {{- end }}
-  {{- if .Values.sslPolicy }}
-  sslPolicy: {{ .Values.sslPolicy | quote }}
+  {{- if .Values.frontendConfig.sslPolicy }}
+  sslPolicy: {{ .Values.frontendConfig.sslPolicy | quote }}
   {{- end }}
   {{- if .Values.frontendConfig.clientAuthentication.enabled }}
   clientAuthentication:
