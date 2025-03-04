@@ -82,6 +82,7 @@ ingress:
 # Google managed certificate (if using annotation above)
 managedCertificate:
   enabled: false
+  name: "nginx-cert"
   domains:
     - chart-example.local
 
