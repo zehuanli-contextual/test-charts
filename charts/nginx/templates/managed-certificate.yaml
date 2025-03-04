@@ -2,7 +2,7 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: nginx-cert
+  name: {{ .Values.managedCertificate.name | default "nginx-cert" }}
 spec:
   domains:
   {{- range .Values.managedCertificate.domains }}
