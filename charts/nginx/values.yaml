@@ -93,7 +93,6 @@ ingressTailscale:
   tls:
     - hosts:
         - example.com
-      secretName: tls-secret
   # Routing rules
   rules:
     - http:
