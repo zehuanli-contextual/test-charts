@@ -44,7 +44,7 @@ spec:
             {{- with .pathType }}
             pathType: {{ . }}
             {{- end }}
-            {{- if .backend }}
+            {{- with .backend }}
             backend:
               service:
                 name: {{ .serviceName }}
