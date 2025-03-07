@@ -37,18 +37,18 @@ spec:
 
   {{- if .Values.ingressTailscale.rules }}
   rules:
-    http:
-      paths:
-        {{- range .paths }}
-        - path: {{ .path }}
-          {{- with .pathType }}
-          pathType: {{ . }}
+    - http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- with .pathType }}
+            pathType: {{ . }}
+            {{- end }}
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: {{ .servicePort }}
           {{- end }}
-          backend:
-            service:
-              name: {{ .serviceName }}
-              port:
-                number: {{ .servicePort }}
-        {{- end }}
   {{- end }}
 {{- end }}
