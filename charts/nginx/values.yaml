@@ -96,16 +96,16 @@ ingressTailscale:
       secretName: tls-secret
   # Routing rules
   rules:
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          serviceName: frontend
-          servicePort: 80
-        - path: /api
-          pathType: Prefix
-          serviceName: backend
-          servicePort: 80
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            serviceName: frontend
+            servicePort: 80
+          - path: /api
+            pathType: Prefix
+            serviceName: backend
+            servicePort: 80
 
 # Google managed certificate (if using annotation above)
 managedCertificate:
