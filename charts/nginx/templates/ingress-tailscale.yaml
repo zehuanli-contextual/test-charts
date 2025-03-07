@@ -12,11 +12,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingressTailscale.ingressClassName }}
-  ingressClassName: {{ .Values.ingressTailscale.ingressClassName }}
-  {{- else }}
   ingressClassName: tailscale
-  {{- end }}
   
   {{- if .Values.ingressTailscale.defaultBackend }}
   defaultBackend:
