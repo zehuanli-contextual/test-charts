@@ -2,22 +2,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "nginx-chart.fullname" . }}-tailscale
+  name: {{ .Values.ingressTailscale.name | default (include "nginx-chart.fullname" .) }}
+  {{- with .Values.ingressTailscale.labels }}
   labels:
-    {{- include "nginx-chart.labels" . | nindent 4 }}
-    {{- with .Values.ingressTailscale.labels }}
     {{- toYaml . | nindent 4 }}
-    {{- end }}
+  {{- end }}
   {{- with .Values.ingressTailscale.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingressTailscale.ingressClassName }}
-  ingressClassName: {{ .Values.ingressTailscale.ingressClassName }}
-  {{- else }}
   ingressClassName: tailscale
+  
+  {{- if .Values.ingressTailscale.defaultBackend }}
+  defaultBackend:
+    service:
+      name: {{ .Values.ingressTailscale.defaultBackend.serviceName }}
+      port:
+        number: {{ .Values.ingressTailscale.defaultBackend.servicePort }}
   {{- end }}
+
   {{- if .Values.ingressTailscale.tls }}
   tls:
     {{- range .Values.ingressTailscale.tls }}
@@ -25,12 +29,15 @@ spec:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
-      secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
+
+  {{- if .Values.ingressTailscale.hosts }}
   rules:
     {{- range .Values.ingressTailscale.hosts }}
-    - host: {{ .host | quote }}
+    - {{- if .host }}
+      host: {{ .host | quote }}
+      {{- end }}
       http:
         paths:
           {{- range .paths }}
@@ -40,9 +47,10 @@ spec:
             {{- end }}
             backend:
               service:
-                name: {{ include "nginx-chart.fullname" $ }}
+                name: {{ .serviceName }}
                 port:
-                  number: {{ $.Values.service.port }}
+                  number: {{ .servicePort }}
           {{- end }}
     {{- end }}
+  {{- end }}
 {{- end }}
