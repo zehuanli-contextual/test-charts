@@ -42,9 +42,9 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ .backend.service.name | default (include "nginx-chart.fullname" $) }}
+                name: {{ include "nginx-chart.fullname" $ }}
                 port:
-                  number: {{ .backend.service.port.number | $.Values.service.port }}
+                  number: {{ $.Values.service.port }}
           {{- end }}
     {{- end }}
   {{- end }}
