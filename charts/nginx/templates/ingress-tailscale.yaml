@@ -29,26 +29,22 @@ spec:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
-      {{- if .secretName }}
-      secretName: {{ .secretName }}
-      {{- end }}
     {{- end }}
   {{- end }}
 
   {{- if .Values.ingressTailscale.rules }}
   rules:
     {{- range .Values.ingressTailscale.rules }}
-    - host: {{ .host | quote }}
-      http:
+    - http:
         paths:
-          {{- range .paths }}
+          {{- range .http.paths }}
           - path: {{ .path }}
-            pathType: {{ .pathType | default "Prefix" }}
+            pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ .serviceName | default (include "nginx-chart.fullname" $) }}
+                name: {{ .backend.service.name | default (include "nginx-chart.fullname" $) }}
                 port:
-                  number: {{ .servicePort | default $.Values.service.port }}
+                  number: {{ .backend.service.port.number | default $.Values.service.port }}
           {{- end }}
     {{- end }}
   {{- end }}
