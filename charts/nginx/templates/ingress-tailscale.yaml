@@ -13,8 +13,10 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.ingressTailscale.ingressClassName }}
-  ingressClassName: {{ . }}
+  {{- if .Values.ingressTailscale.ingressClassName }}
+  ingressClassName: {{ .Values.ingressTailscale.ingressClassName }}
+  {{- else }}
+  ingressClassName: tailscale
   {{- end }}
   {{- if .Values.ingressTailscale.tls }}
   tls:
