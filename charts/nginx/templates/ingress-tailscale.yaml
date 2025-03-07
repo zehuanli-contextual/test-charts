@@ -49,5 +49,6 @@ spec:
                 name: {{ include "nginx-chart.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
+          {{- end }}
   {{- end }}
 {{- end }}
