@@ -44,11 +44,13 @@ spec:
             {{- with .pathType }}
             pathType: {{ . }}
             {{- end }}
+            {{- if .backend }}
             backend:
               service:
                 name: {{ .serviceName }}
                 port:
                   number: {{ .servicePort }}
+            {{- end }}
           {{- end }}
   {{- end }}
 {{- end }}
