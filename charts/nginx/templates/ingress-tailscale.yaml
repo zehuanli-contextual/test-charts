@@ -12,7 +12,11 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingressTailscale.ingressClassName }}
+  ingressClassName: {{ .Values.ingressTailscale.ingressClassName }}
+  {{- else }}
   ingressClassName: tailscale
+  {{- end }}
   
   {{- if .Values.ingressTailscale.defaultBackend }}
   defaultBackend:
@@ -29,16 +33,16 @@ spec:
         {{- range .hosts }}
         - {{ . | quote }}
         {{- end }}
+      {{- if .secretName }}
+      secretName: {{ .secretName }}
+      {{- end }}
     {{- end }}
   {{- end }}
 
-  {{- if .Values.ingressTailscale.hosts }}
+  {{- if .Values.ingressTailscale.rules }}
   rules:
-    {{- range .Values.ingressTailscale.hosts }}
-    - {{- if .host }}
-      host: {{ .host | quote }}
-      {{- end }}
-      http:
+    {{- range .Values.ingressTailscale.rules }}
+    - http:
         paths:
           {{- range .paths }}
           - path: {{ .path }}
