@@ -79,6 +79,34 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# This block is for setting up the Tailscale ingress: https://tailscale.com/kb/1439/kubernetes-operator-cluster-ingress
+ingressTailscale:
+  enabled: false
+  name: ""  # If empty, will use chart fullname
+  ingressClassName: tailscale
+  # Optional default backend
+  defaultBackend: {}
+  # defaultBackend:
+  #   serviceName: default-backend
+  #   servicePort: 80
+  # TLS configuration
+  tls:
+    - hosts:
+        - example.com
+      secretName: tls-secret
+  # Routing rules
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            serviceName: frontend
+            servicePort: 80
+          - path: /api
+            pathType: Prefix
+            serviceName: backend
+            servicePort: 80
+
 # Google managed certificate (if using annotation above)
 managedCertificate:
   enabled: false
