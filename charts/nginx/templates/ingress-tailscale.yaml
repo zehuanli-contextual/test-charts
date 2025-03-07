@@ -44,13 +44,10 @@ spec:
             {{- with .pathType }}
             pathType: {{ . }}
             {{- end }}
-            {{- with .backend }}
             backend:
               service:
-                name: {{ .serviceName }}
+                name: {{ include "nginx-chart.fullname" $ }}
                 port:
-                  number: {{ .servicePort }}
-            {{- end }}
-          {{- end }}
+                  number: {{ $.Values.service.port }}
   {{- end }}
 {{- end }}
