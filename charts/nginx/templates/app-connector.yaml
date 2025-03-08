@@ -1,3 +1,4 @@
+{{- if .Values.appConnector.enabled -}}
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
@@ -43,3 +44,4 @@ spec:
   {{- if .Values.appConnector.exitNode.enabled }}
   exitNode: true
   {{- end }}
+{{- end }}
