@@ -64,6 +64,13 @@ frontendConfig:
     enabled: false
     responseCodeName: MOVED_PERMANENTLY_DEFAULT
 
+# Google managed certificate (if using annotation above)
+managedCertificate:
+  enabled: false
+  name: "nginx-cert"
+  domains:
+    - chart-example.local
+
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: false
@@ -105,13 +112,6 @@ ingressTailscale:
             pathType: Prefix
             serviceName: backend
             servicePort: 80
-
-# Google managed certificate (if using annotation above)
-managedCertificate:
-  enabled: false
-  name: "nginx-cert"
-  domains:
-    - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
