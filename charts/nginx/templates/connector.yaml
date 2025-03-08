@@ -32,13 +32,15 @@ spec:
   {{- end }}
   
   {{- if .Values.connector.appConnector.enabled }}
+  {{- if .Values.connector.appConnector.routes }}
   appConnector:
-    {{- if .Values.connector.appConnector.routes }}
     routes:
     {{- range .Values.connector.appConnector.routes }}
       - {{ . }}
     {{- end }}
-    {{- end }}
+  {{- else }}
+  appConnector: {}
+  {{- end }}
   {{- end }}
   
   {{- if .Values.connector.exitNode.enabled }}
