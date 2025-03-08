@@ -1,0 +1,47 @@
+{{- if .Values.connector.enabled -}}
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: {{ .Values.connector.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.connector.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  {{- if .Values.connector.hostname }}
+  hostname: {{ .Values.connector.hostname }}
+  {{- end }}
+  
+  {{- if .Values.connector.tags }}
+  tags:
+  {{- range .Values.connector.tags }}
+    - {{ . }}
+  {{- end }}
+  {{- end }}
+  
+  {{- if .Values.connector.proxyClass }}
+  proxyClass: {{ .Values.connector.proxyClass }}
+  {{- end }}
+  
+  {{- if .Values.connector.subnetRouter.enabled }}
+  subnetRouter:
+    routes:
+    {{- range .Values.connector.subnetRouter.routes }}
+      - {{ . }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .Values.connector.appConnector.enabled }}
+  appConnector:
+    {{- if .Values.connector.appConnector.routes }}
+    routes:
+    {{- range .Values.connector.appConnector.routes }}
+      - {{ . }}
+    {{- end }}
+    {{- end }}
+  {{- end }}
+  
+  {{- if .Values.connector.exitNode.enabled }}
+  exitNode: true
+  {{- end }}
+{{- end }}
