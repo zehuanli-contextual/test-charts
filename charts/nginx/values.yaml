@@ -113,6 +113,23 @@ ingressTailscale:
             serviceName: backend
             servicePort: 80
 
+connector:
+  enabled: false
+  name: "default-connector"
+  hostname: ""  # defaults to <connector-name>-connector if not set
+  tags:
+    - "tag:k8s"
+  proxyClass: ""
+  # Configure connector type (choose one)
+  subnetRouter:
+    enabled: false
+    routes: []  # e.g. ["10.0.0.0/24", "192.168.1.0/24"]
+  appConnector:
+    enabled: true
+    routes: []  # optional preconfigured routes for domains
+  exitNode:
+    enabled: false
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
