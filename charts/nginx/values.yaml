@@ -76,18 +76,6 @@ managedCertificate:
   domains:
     - chart-example.local
 
-# cert-manager configuration
-certManager:
-  clusterIssuer:
-    enabled: false
-    name: letsencrypt-dns
-    server: https://acme-v02.api.letsencrypt.org/directory
-    email: ""  # Must be set when enabled
-    privateKeySecretRef: letsencrypt-dns-private-key
-    gcpProject: ""
-    useWorkloadIdentity: true  # Set to false to use service account key
-    serviceAccountSecretName: clouddns-dns01-solver-sa  # Only used if useWorkloadIdentity=false
-
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: false
