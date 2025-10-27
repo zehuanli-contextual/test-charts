@@ -1,8 +1,17 @@
-# ClusterIssuer for Let's Encrypt with DNS-01
-clusterIssuer:
-  enabled: true
-  name: letsencrypt-dns
-  server: https://acme-v02.api.letsencrypt.org/directory
-  email: ""  # MUST be set in ArgoCD app or via --set
-  privateKeySecretRef: letsencrypt-dns-private-key
-  gcpProject: ""
+# cert-manager configuration
+certManager:
+  # Kubernetes ServiceAccount configuration
+  serviceAccount:
+    enabled: false
+    name: cert-manager
+    namespace: cert-manager
+    annotations: {}
+  
+  # ClusterIssuer for Let's Encrypt
+  clusterIssuer:
+    enabled: false
+    name: letsencrypt-dns
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: ""
+    privateKeySecretRef: letsencrypt-dns-private-key
+    gcpProject: ""
