@@ -1,12 +1,5 @@
 # cert-manager configuration
-certManager:
-  # Kubernetes ServiceAccount configuration
-  serviceAccount:
-    enabled: false
-    name: cert-manager
-    namespace: cert-manager
-    annotations: {}
-  
+certManager: 
   # ClusterIssuer for Let's Encrypt
   clusterIssuer:
     enabled: false
